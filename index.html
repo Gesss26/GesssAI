@@ -204,7 +204,7 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 <div class="date-filter">
 <label style="color:#87ceeb;">Data:</label>
 <input type="date" id="filterDate" onchange="applyDateFilter()">
-<button class="btn btn-secondary" onclick="clearDateFilter()">️ Pulisci</button>
+<button class="btn btn-secondary" onclick="clearDateFilter()">🗑️ Pulisci</button>
 </div>
 <button class="btn btn-secondary" onclick="exportToCSV()">📄 Esporta CSV</button>
 <div class="toggle-container">
@@ -221,7 +221,7 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 </div>
 <div id="tab-partita" class="tab-content">
 <div id="matchDetailContainer" class="match-detail-container">
-<button class="btn-back" onclick="closeMatchDetail()">️ Torna al Palinsesto</button>
+<button class="btn-back" onclick="closeMatchDetail()">⬅️ Torna al Palinsesto</button>
 <div id="matchDetailContent"></div>
 </div>
 <div id="matchDetailPlaceholder" style="text-align:center;padding:60px;color:#87ceeb;">
@@ -300,12 +300,12 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 </div>
 <div class="settings-row">
 <label>🔍 Cerca campionato:</label>
-<input type="text" id="tsdbSearchInput" placeholder="Es: Iceland, Besta deild..." style="flex:1;">
+<input type="text" id="tsdbSearchInput" placeholder="Es: Italian Serie A, English Premier League..." style="flex:1;">
 <button class="btn" onclick="searchTheSportsDBLeague()">🔍 Cerca</button>
 </div>
 <div class="settings-row">
 <label>📅 Stagione:</label>
-<input type="number" id="tsdbSearchSeason" value="2026" min="2020" max="2030" style="width:100px;">
+<input type="number" id="tsdbSearchSeason" value="2025-2026" style="width:150px;">
 </div>
 <div id="tsdbSearchResults" class="league-search-results"></div>
 </div>
@@ -321,16 +321,16 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 <label>🔑 API Key:</label>
 <input type="password" id="apifootballApiKey" placeholder="API Key RapidAPI" style="flex:1;">
 <button class="btn" onclick="saveApiFootballKey()">💾 Salva</button>
-<button class="btn btn-secondary" onclick="testApiFootballKey()"> Test</button>
+<button class="btn btn-secondary" onclick="testApiFootballKey()">🧪 Test</button>
 </div>
 <div class="settings-row">
 <label>🔍 Cerca campionato:</label>
-<input type="text" id="apifootballSearchInput" placeholder="Es: Besta deild karla..." style="flex:1;">
+<input type="text" id="apifootballSearchInput" placeholder="Es: Serie A, Premier League..." style="flex:1;">
 <button class="btn" onclick="searchApiFootballLeague()">🔍 Cerca</button>
 </div>
 <div class="settings-row">
-<label> Stagione:</label>
-<input type="number" id="apifootballSearchSeason" value="2026" min="2020" max="2030" style="width:100px;">
+<label>📅 Stagione:</label>
+<input type="number" id="apifootballSearchSeason" value="2025" min="2020" max="2030" style="width:100px;">
 </div>
 <div id="apifootballSearchResults" class="league-search-results"></div>
 </div>
@@ -341,19 +341,20 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 <div class="settings-row">
 <label>API Key:</label>
 <input type="password" id="footballDataApiKey" placeholder="API Key" style="flex:1;">
+<button class="btn" onclick="saveFootballDataKey()">💾 Salva</button>
 </div>
 <div class="settings-row">
 <label>Campionato:</label>
 <select id="footballDataLeague" style="flex:1;">
 <option value="">-- Seleziona --</option>
-<optgroup label=" Competizioni">
+<optgroup label="🏆 Competizioni">
 <option value="CL">UEFA Champions League</option>
 <option value="EL">UEFA Europa League</option>
 <option value="ECL">UEFA Conference League</option>
 <option value="EC">European Championship</option>
 <option value="WC">FIFA World Cup 2026</option>
 </optgroup>
-<optgroup label=" Inghilterra">
+<optgroup label="🏴 Inghilterra">
 <option value="PL">Premier League</option>
 <option value="ELC">Championship</option>
 <option value="FAC">FA Cup</option>
@@ -362,7 +363,7 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 <option value="PD">La Liga</option>
 <option value="SD">Segunda Division</option>
 </optgroup>
-<optgroup label="🇩 Germania">
+<optgroup label="🇩🇪 Germania">
 <option value="BL1">Bundesliga</option>
 <option value="BL2">2. Bundesliga</option>
 </optgroup>
@@ -378,7 +379,7 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 <optgroup label="🇳🇱 Olanda">
 <option value="DED">Eredivisie</option>
 </optgroup>
-<optgroup label="🇹 Portogallo">
+<optgroup label="🇵🇹 Portogallo">
 <option value="PPL">Primeira Liga</option>
 </optgroup>
 <optgroup label="🇧🇪 Belgio">
@@ -387,23 +388,25 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 <optgroup label="🇧🇷 Brasile">
 <option value="BSA">Brasileirão</option>
 </optgroup>
-<optgroup label="🇷 Argentina">
+<optgroup label="🇦🇷 Argentina">
 <option value="PLA">Liga Argentina</option>
 </optgroup>
 </select>
 </div>
 <div class="settings-row">
 <label>Stagione:</label>
-<input type="number" id="footballDataSeason" value="2026" min="2020" max="2030" style="width:100px;">
+<input type="number" id="footballDataSeason" value="2025" min="2020" max="2030" style="width:100px;">
 </div>
 <div class="settings-row">
+<button class="btn btn-success" onclick="syncResultsFromAPI()">🔄 Aggiorna Risultati (Auto)</button>
 <button class="btn" onclick="fetchFootballData()">📥 Scarica Calendario</button>
 <button class="btn btn-secondary" onclick="downloadAsCSV()">💾 Scarica CSV</button>
 </div>
+<p style="color:#87ceeb;font-size:0.8em;margin-top:5px;">💡 <strong>Auto-Update:</strong> Scarica i risultati degli ultimi 7 giorni e aggiorna lo Storico automaticamente.</p>
 </div>
 </div>
 <div class="settings-section">
-<h3> GROQ AI</h3>
+<h3>🧠 GROQ AI</h3>
 <div class="api-config">
 <div class="settings-row">
 <label>GROQ API Key:</label>
@@ -442,7 +445,7 @@ select, input[type="password"], input[type="number"], input[type="text"] { backg
 <p style="color:#87ceeb;font-size:0.85em;margin-top:10px;">💡 <strong>Esporta</strong>: Salva tutti i dati in JSON<br>💡 <strong>Importa</strong>: Carica un file JSON</p>
 </div>
 <div class="settings-section">
-<h3> Debug</h3>
+<h3>🔧 Debug</h3>
 <button class="btn btn-secondary" onclick="debugReload()">🔄 Ricarica Dati</button>
 <button class="btn btn-danger" onclick="debugClearCache()">🗑️ Pulisci Cache</button>
 </div>
@@ -486,9 +489,12 @@ const VALID_COMBOS = [
 
 const CUP_KEYWORDS = ['Cup','Coppa','Champions League','Europa League','Coppa Italia','Mondiali','Europei','National League','World Cup','FA Cup','EFL Cup','Conference League'];
 
+const CORS_PROXY = 'https://corsproxy.io/?';
+const API_FOOTBALL_HOST = 'v3.football.api-sports.io';
+
 function loadFromStorage() {
 try {
-console.log(' Caricamento dati da localStorage...');
+console.log('🔄 Caricamento dati da localStorage...');
 allMatches = JSON.parse(localStorage.getItem('gessai_matches')) || [];
 savedLeagues = JSON.parse(localStorage.getItem('gessai_leagues')) || [];
 leagueOrder = JSON.parse(localStorage.getItem('gessai_leagueOrder')) || [...savedLeagues];
@@ -508,7 +514,7 @@ if (valueLabel) valueLabel.textContent = fontSize + 'px';
 }
 console.log('✅ Dati caricati:', { partite: allMatches.length, campionati: savedLeagues.length });
 } catch (e) {
-console.error(' Errore caricamento dati:', e);
+console.error('❌ Errore caricamento dati:', e);
 allMatches = []; savedLeagues = []; leagueOrder = []; leagueColors = {};
 aiAnalyses = {}; teamLogos = {}; bettingHistory = []; schedinaBets = [];
 }
@@ -555,7 +561,7 @@ const dateEl = document.getElementById('currentDate');
 const timeEl = document.getElementById('currentTime');
 if (dateEl) dateEl.value = now.toISOString().split('T')[0];
 if (timeEl) timeEl.value = now.toTimeString().slice(0, 5);
-console.log(' Caricamento dati...');
+console.log('📥 Caricamento dati...');
 loadFromStorage();
 console.log('🎨 Rendering UI...');
 renderAll();
@@ -632,21 +638,29 @@ if (status) { status.textContent = '✅ Salvata'; status.className = 'key-status
 showNotification('🔑 API Key API-Football salvata!', 'success');
 }
 
+function saveFootballDataKey() {
+const el = document.getElementById('footballDataApiKey');
+const key = el ? el.value.trim() : '';
+if (!key) { showNotification('Inserisci una API Key valida!', 'error'); return; }
+localStorage.setItem('footballDataApiKey', key);
+showNotification('🔑 API Key Football-Data.org salvata!', 'success');
+}
+
 async function testTheSportsDBKey() {
 const el = document.getElementById('thesportsdbApiKey');
 const apiKey = el ? el.value.trim() : '';
 if (!apiKey) { showNotification('Inserisci una API Key!', 'error'); return; }
 showNotification('🧪 Test TheSportsDB in corso...', 'success');
 try {
-const url = 'https://www.thesportsdb.com/api/v1/json/' + apiKey + '/search_all_leagues.php?s=Soccer&l=Premier+League';
+const url = 'https://www.thesportsdb.com/api/v1/json/' + apiKey + '/search_all_leagues.php?s=Soccer';
 const response = await fetch(url);
 const data = await response.json();
 const status = document.getElementById('tsdbKeyStatus');
 if (data.countries && data.countries.length > 0) {
-showNotification('✅ Chiave valida! Trovati ' + data.countries.length + ' risultati', 'success');
+showNotification('✅ Chiave valida! Trovati ' + data.countries.length + ' campionati', 'success');
 if (status) { status.textContent = '✅ Valida'; status.className = 'key-status saved'; }
 } else {
-showNotification(' Chiave non valida', 'error');
+showNotification('❌ Chiave non valida', 'error');
 if (status) { status.textContent = '❌ Non valida'; status.className = 'key-status not-saved'; }
 }
 } catch (error) {
@@ -662,9 +676,9 @@ const apiKey = el ? el.value.trim() : '';
 if (!apiKey) { showNotification('Inserisci una API Key!', 'error'); return; }
 showNotification('🧪 Test API-Football in corso...', 'success');
 try {
-const url = 'https://v3.football.api-sports.io/leagues?search=Premier+League';
-const response = await fetch(url, { headers: { 'x-apisports-key': apiKey, 'x-rapidapi-host': 'v3.football.api-sports.io' } });
-if (!response.ok) { throw new Error('HTTP ' + response.status); }
+const url = `${CORS_PROXY}https://${API_FOOTBALL_HOST}/leagues?search=Premier+League`;
+const response = await fetch(url, { headers: { 'x-apisports-key': apiKey } });
+if (!response.ok) throw new Error('HTTP ' + response.status);
 const data = await response.json();
 const status = document.getElementById('apifootballKeyStatus');
 if (data.response && data.response.length > 0) {
@@ -678,6 +692,447 @@ if (status) { status.textContent = '❌ Non valida'; status.className = 'key-sta
 showNotification('Errore: ' + error.message, 'error');
 const status = document.getElementById('apifootballKeyStatus');
 if (status) { status.textContent = '❌ Errore'; status.className = 'key-status not-saved'; }
+}
+}
+
+async function searchTheSportsDBLeague() {
+const apiKey = localStorage.getItem('thesportsdbApiKey') || '123';
+const searchInput = document.getElementById('tsdbSearchInput').value.trim();
+const resultsContainer = document.getElementById('tsdbSearchResults');
+
+if (!searchInput) { showNotification('⚠️ Inserisci il nome del campionato!', 'error'); return; }
+
+showNotification('🔍 Ricerca in corso...', 'success');
+resultsContainer.innerHTML = '<div style="text-align:center;color:#87ceeb;padding:20px;">⏳ Ricerca...</div>';
+
+try {
+const url = `https://www.thesportsdb.com/api/v1/json/${apiKey}/search_all_leagues.php?s=Soccer`;
+const response = await fetch(url);
+const data = await response.json();
+
+if (!data.countries || data.countries.length === 0) {
+resultsContainer.innerHTML = '<div style="text-align:center;color:#dc3545;padding:20px;">❌ Nessun campionato trovato</div>';
+return;
+}
+
+const filtered = data.countries.filter(l => {
+const name = (l.strLeague || '').toLowerCase();
+const country = (l.strCountry || '').toLowerCase();
+const search = searchInput.toLowerCase();
+return name.includes(search) || country.includes(search);
+});
+
+if (filtered.length === 0) {
+resultsContainer.innerHTML = '<div style="text-align:center;color:#dc3545;padding:20px;">❌ Nessun risultato per "' + searchInput + '"</div>';
+return;
+}
+
+let html = '';
+filtered.slice(0, 20).forEach(league => {
+const leagueName = league.strLeague || 'Sconosciuto';
+const leagueId = league.idLeague || '';
+const country = league.strCountry || 'N/D';
+const badge = league.strBadge || '';
+
+html += `<div class="league-search-item">
+<div class="league-info">
+<div class="league-name">${badge ? '<img src="'+badge+'" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%;">' : ''}${leagueName}</div>
+<div class="league-details">🌍 ${country} • ID: ${leagueId}</div>
+</div>
+<button class="download-btn" onclick="downloadTheSportsDBLeague('${leagueId}', '${leagueName.replace(/'/g, "\\'")}')">📥 Scarica</button>
+</div>`;
+});
+
+resultsContainer.innerHTML = html;
+showNotification(`✅ Trovati ${filtered.length} campionati`, 'success');
+} catch (error) {
+resultsContainer.innerHTML = '<div style="text-align:center;color:#dc3545;padding:20px;">❌ Errore: ' + error.message + '</div>';
+showNotification('❌ Errore: ' + error.message, 'error');
+}
+}
+
+async function downloadTheSportsDBLeague(leagueId, leagueName) {
+const apiKey = localStorage.getItem('thesportsdbApiKey') || '123';
+const season = document.getElementById('tsdbSearchSeason').value;
+
+showNotification(`📥 Download ${leagueName} ${season}...`, 'success');
+
+try {
+const [nextRes, lastRes] = await Promise.all([
+fetch(`https://www.thesportsdb.com/api/v1/json/${apiKey}/eventsnextleague.php?id=${leagueId}`),
+fetch(`https://www.thesportsdb.com/api/v1/json/${apiKey}/eventspastleague.php?id=${leagueId}`)
+]);
+
+const nextData = await nextRes.json();
+const lastData = await lastRes.json();
+
+const allEvents = [
+...(nextData.events || []),
+...(lastData.events || [])
+];
+
+if (allEvents.length === 0) {
+showNotification('⚠️ Nessun evento trovato. La chiave gratuita ha limiti.', 'error');
+return;
+}
+
+let importedCount = 0;
+let existingCount = 0;
+const seasonYear = season.split('-')[0];
+
+allEvents.forEach(event => {
+const eventDate = event.dateEvent;
+if (!eventDate) return;
+
+const parts = eventDate.split('-');
+const localDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+const eventYear = parts[0];
+
+if (eventYear !== seasonYear) return;
+
+const homeTeam = event.strHomeTeam || 'Sconosciuta';
+const awayTeam = event.strAwayTeam || 'Sconosciuta';
+
+const exists = allMatches.some(m => 
+m.date === localDate && 
+m.homeTeam.toLowerCase() === homeTeam.toLowerCase() && 
+m.awayTeam.toLowerCase() === awayTeam.toLowerCase()
+);
+
+if (exists) { existingCount++; return; }
+
+let status = 'futura';
+let homeGoals = 0;
+let awayGoals = 0;
+
+if (event.strStatus === 'Match Finished' || event.intHomeScore !== null && event.intHomeScore !== '') {
+status = 'giocata';
+homeGoals = parseInt(event.intHomeScore) || 0;
+awayGoals = parseInt(event.intAwayScore) || 0;
+}
+
+const newMatch = {
+id: 'match_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+league: leagueName,
+round: event.strRound || event.strSeason || 'Round 01',
+date: localDate,
+time: event.strTime || '00:00',
+homeTeam: homeTeam,
+awayTeam: awayTeam,
+status: status,
+homeGoals: homeGoals,
+awayGoals: awayGoals,
+result: status === 'giocata' ? `${homeGoals}-${awayGoals}` : '',
+homeForm: [],
+awayForm: []
+};
+
+allMatches.push(newMatch);
+importedCount++;
+});
+
+if (!savedLeagues.includes(leagueName)) {
+savedLeagues.push(leagueName);
+if (!leagueOrder.includes(leagueName)) leagueOrder.push(leagueName);
+}
+
+calculateForm();
+saveToStorage();
+updateLeagueSelectors();
+renderAll();
+
+showNotification(`✅ Importate ${importedCount} partite! (${existingCount} già esistenti)`, 'success');
+} catch (error) {
+showNotification('❌ Errore: ' + error.message, 'error');
+console.error(error);
+}
+}
+
+async function searchApiFootballLeague() {
+const apiKey = localStorage.getItem('apifootballApiKey');
+const searchInput = document.getElementById('apifootballSearchInput').value.trim();
+const resultsContainer = document.getElementById('apifootballSearchResults');
+
+if (!apiKey) { showNotification('⚠️ Inserisci prima la API Key!', 'error'); return; }
+if (!searchInput) { showNotification('⚠️ Inserisci il nome del campionato!', 'error'); return; }
+
+showNotification('🔍 Ricerca in corso...', 'success');
+resultsContainer.innerHTML = '<div style="text-align:center;color:#87ceeb;padding:20px;">⏳ Ricerca...</div>';
+
+try {
+const url = `${CORS_PROXY}https://${API_FOOTBALL_HOST}/leagues?search=${encodeURIComponent(searchInput)}`;
+const response = await fetch(url, {
+headers: { 'x-apisports-key': apiKey }
+});
+if (!response.ok) throw new Error('HTTP ' + response.status);
+const data = await response.json();
+
+if (!data.response || data.response.length === 0) {
+resultsContainer.innerHTML = '<div style="text-align:center;color:#dc3545;padding:20px;">❌ Nessun campionato trovato</div>';
+return;
+}
+
+let html = '';
+data.response.forEach(item => {
+const league = item.league;
+const leagueId = league.id;
+const leagueName = league.name;
+const country = item.country.name;
+const logo = league.logo || '';
+const season = item.seasons && item.seasons.length > 0 ? item.seasons[item.seasons.length - 1].year : '';
+
+html += `<div class="league-search-item">
+<div class="league-info">
+<div class="league-name">${logo ? '<img src="'+logo+'" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%;">' : ''}${leagueName}</div>
+<div class="league-details">🌍 ${country} • ID: ${leagueId} • Stagione: ${season}</div>
+</div>
+<button class="download-btn" onclick="downloadApiFootballLeague(${leagueId}, '${leagueName.replace(/'/g, "\\'")}')">📥 Scarica</button>
+</div>`;
+});
+
+resultsContainer.innerHTML = html;
+showNotification(`✅ Trovati ${data.response.length} campionati`, 'success');
+} catch (error) {
+resultsContainer.innerHTML = '<div style="text-align:center;color:#dc3545;padding:20px;">❌ Errore: ' + error.message + '</div>';
+showNotification('❌ Errore: ' + error.message, 'error');
+}
+}
+
+async function downloadApiFootballLeague(leagueId, leagueName) {
+const apiKey = localStorage.getItem('apifootballApiKey');
+const season = document.getElementById('apifootballSearchSeason').value;
+
+if (!apiKey) { showNotification('⚠️ Inserisci prima la API Key!', 'error'); return; }
+
+showNotification(`📥 Download ${leagueName} ${season}...`, 'success');
+
+try {
+const url = `${CORS_PROXY}https://${API_FOOTBALL_HOST}/fixtures?league=${leagueId}&season=${season}`;
+const response = await fetch(url, {
+headers: { 'x-apisports-key': apiKey }
+});
+if (!response.ok) throw new Error('HTTP ' + response.status);
+const data = await response.json();
+
+if (!data.response || data.response.length === 0) {
+showNotification('⚠️ Nessun evento trovato', 'error');
+return;
+}
+
+let importedCount = 0;
+let existingCount = 0;
+
+data.response.forEach(fixture => {
+const eventDate = fixture.fixture.date;
+if (!eventDate) return;
+
+const dateObj = new Date(eventDate);
+const localDate = `${String(dateObj.getDate()).padStart(2,'0')}/${String(dateObj.getMonth()+1).padStart(2,'0')}/${dateObj.getFullYear()}`;
+const localTime = `${String(dateObj.getHours()).padStart(2,'0')}:${String(dateObj.getMinutes()).padStart(2,'0')}`;
+
+const homeTeam = fixture.teams.home.name || 'Sconosciuta';
+const awayTeam = fixture.teams.away.name || 'Sconosciuta';
+
+const exists = allMatches.some(m => 
+m.date === localDate && 
+m.homeTeam.toLowerCase() === homeTeam.toLowerCase() && 
+m.awayTeam.toLowerCase() === awayTeam.toLowerCase()
+);
+
+if (exists) { existingCount++; return; }
+
+let status = 'futura';
+let homeGoals = 0;
+let awayGoals = 0;
+
+if (fixture.fixture.status.short === 'FT' || fixture.fixture.status.short === 'AET' || fixture.fixture.status.short === 'PEN') {
+status = 'giocata';
+homeGoals = fixture.goals.home || 0;
+awayGoals = fixture.goals.away || 0;
+}
+
+const newMatch = {
+id: 'match_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+league: leagueName,
+round: fixture.league.round || 'Round 01',
+date: localDate,
+time: localTime,
+homeTeam: homeTeam,
+awayTeam: awayTeam,
+status: status,
+homeGoals: homeGoals,
+awayGoals: awayGoals,
+result: status === 'giocata' ? `${homeGoals}-${awayGoals}` : '',
+homeForm: [],
+awayForm: []
+};
+
+allMatches.push(newMatch);
+importedCount++;
+});
+
+if (!savedLeagues.includes(leagueName)) {
+savedLeagues.push(leagueName);
+if (!leagueOrder.includes(leagueName)) leagueOrder.push(leagueName);
+}
+
+calculateForm();
+saveToStorage();
+updateLeagueSelectors();
+renderAll();
+
+showNotification(`✅ Importate ${importedCount} partite! (${existingCount} già esistenti)`, 'success');
+} catch (error) {
+showNotification('❌ Errore: ' + error.message, 'error');
+console.error(error);
+}
+}
+
+async function fetchFootballData() {
+const apiKey = localStorage.getItem('footballDataApiKey');
+const leagueCode = document.getElementById('footballDataLeague').value;
+const season = document.getElementById('footballDataSeason').value;
+
+if (!apiKey) { showNotification('⚠️ Inserisci la API Key!', 'error'); return; }
+if (!leagueCode) { showNotification('⚠️ Seleziona un campionato!', 'error'); return; }
+
+showNotification('📥 Download calendario in corso...', 'success');
+
+try {
+const url = `https://api.football-data.org/v4/competitions/${leagueCode}/matches?season=${season}`;
+const response = await fetch(url, {
+headers: { 'X-Auth-Token': apiKey }
+});
+if (!response.ok) throw new Error('HTTP ' + response.status);
+const data = await response.json();
+
+const leagueName = data.competition ? data.competition.name : leagueCode;
+let importedCount = 0;
+let existingCount = 0;
+
+data.matches.forEach(apiMatch => {
+const dateObj = new Date(apiMatch.utcDate);
+const localDate = `${String(dateObj.getDate()).padStart(2,'0')}/${String(dateObj.getMonth()+1).padStart(2,'0')}/${dateObj.getFullYear()}`;
+const localTime = `${String(dateObj.getHours()).padStart(2,'0')}:${String(dateObj.getMinutes()).padStart(2,'0')}`;
+
+const homeTeam = apiMatch.homeTeam.name;
+const awayTeam = apiMatch.awayTeam.name;
+
+const exists = allMatches.some(m => 
+m.date === localDate && 
+m.homeTeam.toLowerCase() === homeTeam.toLowerCase() && 
+m.awayTeam.toLowerCase() === awayTeam.toLowerCase()
+);
+
+if (exists) { existingCount++; return; }
+
+let status = 'futura';
+let homeGoals = 0;
+let awayGoals = 0;
+
+if (apiMatch.status === 'FINISHED') {
+status = 'giocata';
+homeGoals = apiMatch.score.fullTime.home;
+awayGoals = apiMatch.score.fullTime.away;
+}
+
+const newMatch = {
+id: 'match_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+league: leagueName,
+round: apiMatch.matchday ? 'Giornata ' + apiMatch.matchday : 'Round 01',
+date: localDate,
+time: localTime,
+homeTeam: homeTeam,
+awayTeam: awayTeam,
+status: status,
+homeGoals: homeGoals,
+awayGoals: awayGoals,
+result: status === 'giocata' ? `${homeGoals}-${awayGoals}` : '',
+homeForm: [],
+awayForm: []
+};
+
+allMatches.push(newMatch);
+importedCount++;
+});
+
+if (!savedLeagues.includes(leagueName)) {
+savedLeagues.push(leagueName);
+if (!leagueOrder.includes(leagueName)) leagueOrder.push(leagueName);
+}
+
+calculateForm();
+saveToStorage();
+updateLeagueSelectors();
+renderAll();
+
+showNotification(`✅ Importate ${importedCount} partite! (${existingCount} già esistenti)`, 'success');
+} catch (error) {
+showNotification('❌ Errore: ' + error.message, 'error');
+console.error(error);
+}
+}
+
+async function syncResultsFromAPI() {
+const apiKey = localStorage.getItem('footballDataApiKey');
+const leagueCode = document.getElementById('footballDataLeague').value;
+
+if (!apiKey) { showNotification('⚠️ Inserisci la API Key!', 'error'); return; }
+if (!leagueCode) { showNotification('⚠️ Seleziona un campionato!', 'error'); return; }
+
+showNotification('🔄 Sincronizzazione risultati...', 'success');
+let updatedCount = 0;
+
+try {
+const today = new Date();
+const lastWeek = new Date();
+lastWeek.setDate(today.getDate() - 7);
+
+const dateFrom = lastWeek.toISOString().split('T')[0];
+const dateTo = today.toISOString().split('T')[0];
+
+const url = `https://api.football-data.org/v4/competitions/${leagueCode}/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`;
+const response = await fetch(url, { headers: { 'X-Auth-Token': apiKey } });
+if (!response.ok) throw new Error('HTTP ' + response.status);
+const data = await response.json();
+
+data.matches.forEach(apiMatch => {
+if (apiMatch.status === 'FINISHED' || apiMatch.status === 'AWARDED') {
+const dateObj = new Date(apiMatch.utcDate);
+const localDate = `${String(dateObj.getDate()).padStart(2,'0')}/${String(dateObj.getMonth()+1).padStart(2,'0')}/${dateObj.getFullYear()}`;
+
+const apiHome = apiMatch.homeTeam.name.toLowerCase();
+const apiAway = apiMatch.awayTeam.name.toLowerCase();
+
+const localMatch = allMatches.find(m => {
+if (m.date !== localDate) return false;
+const localHome = m.homeTeam.toLowerCase();
+const localAway = m.awayTeam.toLowerCase();
+return (localHome.includes(apiHome) || apiHome.includes(localHome)) && 
+       (localAway.includes(apiAway) || apiAway.includes(localAway));
+});
+
+if (localMatch && localMatch.status !== 'giocata') {
+localMatch.status = 'giocata';
+localMatch.homeGoals = apiMatch.score.fullTime.home;
+localMatch.awayGoals = apiMatch.score.fullTime.away;
+localMatch.result = `${localMatch.homeGoals}-${localMatch.awayGoals}`;
+calculateForm();
+updatedCount++;
+}
+}
+});
+
+saveToStorage();
+renderAll();
+
+if (updatedCount > 0) {
+showNotification(`✅ Aggiornate ${updatedCount} partite!`, 'success');
+} else {
+showNotification('ℹ️ Nessun nuovo risultato trovato', 'success');
+}
+} catch (error) {
+showNotification('❌ Errore: ' + error.message, 'error');
 }
 }
 
@@ -789,7 +1244,6 @@ const fontSize = size === 'detail' ? 28 : (size === 'card' ? 16 : 10);
 return '<div style="width:' + dim + 'px;height:' + dim + 'px;border-radius:50%;background:linear-gradient(135deg,var(--primary-color),#0066cc);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:' + fontSize + 'px;border:2px solid #FFD700;">' + text + '</div>';
 }
 
-// Helper per abbreviare i nomi nelle TAG
 function formatFlagLabel(cat, label) {
     if (cat === 'Over') return label.replace('Over ', 'O ');
     if (cat === 'Under') return label.replace('Under ', 'U ');
@@ -797,7 +1251,6 @@ function formatFlagLabel(cat, label) {
     return label;
 }
 
-// Trova la giocata migliore per ogni categoria
 function getBestBetPerCategory(stats) {
 const dcOptions = [
 { key: 'dc1x', value: stats.dc1x, label: '1X', team: 'home' },
@@ -878,7 +1331,6 @@ return best;
 return { dc: bestDC, over: bestOver, under: bestUnder, mgc: bestMGC, mgo: bestMGO, mgt: bestMGT };
 }
 
-// Crea il badge flag con il formato richiesto: Categoria: Giocata - Percentuale%
 function createFlagBadge(icon, categoryLabel, betLabel, value, isHighestAmong6) {
 let cssClass = 'flag-badge ';
 let bombIcon = '';
@@ -903,11 +1355,11 @@ if (!stats) return '';
 const bestBets = getBestBetPerCategory(stats);
 
 const flags = [
-{ icon: '️', cat: 'DC', label: bestBets.dc.label, value: bestBets.dc.value },
+{ icon: '🛡️', cat: 'DC', label: bestBets.dc.label, value: bestBets.dc.value },
 { icon: '⚽', cat: 'Over', label: formatFlagLabel('Over', bestBets.over.label), value: bestBets.over.value },
 { icon: '📉', cat: 'Under', label: formatFlagLabel('Under', bestBets.under.label), value: bestBets.under.value },
-{ icon: '🏠', cat: 'MGC', label: formatFlagLabel('Casa', bestBets.mgc.label), value: bestBets.mgc.value },
-{ icon: '️', cat: 'MGO', label: bestBets.mgo.label, value: bestBets.mgo.value },
+{ icon: '🏠', cat: 'Casa', label: formatFlagLabel('Casa', bestBets.mgc.label), value: bestBets.mgc.value },
+{ icon: '✈️', cat: 'MG', label: bestBets.mgo.label, value: bestBets.mgo.value },
 { icon: '🎯', cat: 'MG TOT', label: bestBets.mgt.label, value: bestBets.mgt.value }
 ];
 
@@ -931,11 +1383,11 @@ if (!stats) return '';
 const bestBets = getBestBetPerCategory(stats);
 
 const flags = [
-{ icon: '️', cat: 'DC', label: bestBets.dc.label, value: bestBets.dc.value },
+{ icon: '🛡️', cat: 'DC', label: bestBets.dc.label, value: bestBets.dc.value },
 { icon: '⚽', cat: 'Over', label: formatFlagLabel('Over', bestBets.over.label), value: bestBets.over.value },
 { icon: '📉', cat: 'Under', label: formatFlagLabel('Under', bestBets.under.label), value: bestBets.under.value },
-{ icon: '🏠', cat: 'MGC', label: formatFlagLabel('Casa', bestBets.mgc.label), value: bestBets.mgc.value },
-{ icon: '✈️', cat: 'MGO', label: bestBets.mgo.label, value: bestBets.mgo.value },
+{ icon: '🏠', cat: 'Casa', label: formatFlagLabel('Casa', bestBets.mgc.label), value: bestBets.mgc.value },
+{ icon: '✈️', cat: 'MG', label: bestBets.mgo.label, value: bestBets.mgo.value },
 { icon: '🎯', cat: 'MG TOT', label: bestBets.mgt.label, value: bestBets.mgt.value }
 ];
 
@@ -1017,7 +1469,7 @@ xgDisplay = '<div class="xg-display">' + match.homeTeam + ' - xG: ' + stats.home
 flagsDetailHtml = createFlagsHTML_Dettaglio(match.id);
 }
 
-document.getElementById('matchDetailContent').innerHTML = '<div class="match-header-detail" style="--league-color: ' + lc + ';"><div class="match-header-top"><div class="match-header-title" style="color: ' + lc + ';">' + match.league + ' - Giornata: ' + rn + '</div><div class="match-header-time">⏰ ' + (match.time || 'N/D') + '</div></div><div style="text-align:center;color:#87ceeb;margin-bottom:10px;">📅 ' + match.date + '</div><div class="match-teams-display"><div class="team-display"><div class="team-goals-detail"> Gol: ' + hg.fatti + ' F / ' + hg.subiti + ' S</div><div class="team-logo-container">' + hLogo + '</div><div class="team-name">' + match.homeTeam + '</div><div class="team-form-detail">' + createFormHTML(match.homeForm) + '</div><div style="margin-top:5px;font-size:0.85em;">' + createFormResults(match.homeTeam) + '</div><div style="margin-top:10px;">' + resultHtml + '</div></div><div class="vs-separator" style="color: ' + lc + '; display:flex; flex-direction:column; align-items:center; gap:10px;"><span>VS</span>' + xgDisplay + flagsDetailHtml + '</div><div class="team-display"><div class="team-goals-detail">⚽ Gol: ' + ag.fatti + ' F / ' + ag.subiti + ' S</div><div class="team-logo-container">' + aLogo + '</div><div class="team-name">' + match.awayTeam + '</div><div class="team-form-detail">' + createFormHTML(match.awayForm) + '</div><div style="margin-top:5px;font-size:0.85em;">' + createFormResults(match.awayTeam) + '</div><div style="margin-top:10px;">' + resultHtml + '</div></div></div></div><div class="stats-grid-detail"><div class="stats-panel" style="--league-color: ' + lc + ';"><div id="clickInfo" class="click-info" style="display:none;">1° click: <span id="firstClickInfo"></span> - clicca 2° per combo</div><div id="comboError" class="combo-error" style="display:none;">❌ Combo non valida!</div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Doppia Chance</div><div class="stats-row"><div class="stat-item" id="dc-1x" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'1X\',\'' + match.date + '\',\'dc-1x\',\'DC\')"><span class="label">1X</span><span class="value">-</span></div><div class="stat-item" id="dc-12" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'12\',\'' + match.date + '\',\'dc-12\',\'DC\')"><span class="label">12</span><span class="value">-</span></div><div class="stat-item" id="dc-x2" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'X2\',\'' + match.date + '\',\'dc-x2\',\'DC\')"><span class="label">X2</span><span class="value">-</span></div></div></div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Under - Over</div><div class="stats-row"><div class="stat-item" id="o-15" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 1,5\',\'' + match.date + '\',\'o-15\',\'UNDER_OVER\')"><span class="label">Over 1,5</span><span class="value">-</span></div><div class="stat-item" id="o-25" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 2,5\',\'' + match.date + '\',\'o-25\',\'UNDER_OVER\')"><span class="label">Over 2,5</span><span class="value">-</span></div><div class="stat-item" id="u-35" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Under 3,5\',\'' + match.date + '\',\'u-35\',\'UNDER_OVER\')"><span class="label">Under 3,5</span><span class="value">-</span></div><div class="stat-item" id="u-45" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Under 4,5\',\'' + match.date + '\',\'u-45\',\'UNDER_OVER\')"><span class="label">Under 4,5</span><span class="value">-</span></div></div></div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Multigol Casa - Ospite</div><div class="stats-row-6"><div class="stat-item" id="mh-01" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Casa 0-1\',\'' + match.date + '\',\'mh-01\',\'MULTIGOL_CASA\')"><span class="label">Casa 0-1</span><span class="value">-</span></div><div class="stat-item" id="mh-13" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Casa 1-3\',\'' + match.date + '\',\'mh-13\',\'MULTIGOL_CASA\')"><span class="label">Casa 1-3</span><span class="value">-</span></div><div class="stat-item" id="mh-24" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Casa 2-4\',\'' + match.date + '\',\'mh-24\',\'MULTIGOL_CASA\')"><span class="label">Casa 2-4</span><span class="value">-</span></div><div class="stat-item" id="ma-01" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Ospite 0-1\',\'' + match.date + '\',\'ma-01\',\'MULTIGOL_OSPITE\')"><span class="label">Ospite 0-1</span><span class="value">-</span></div><div class="stat-item" id="ma-13" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Ospite 1-3\',\'' + match.date + '\',\'ma-13\',\'MULTIGOL_OSPITE\')"><span class="label">Ospite 1-3</span><span class="value">-</span></div><div class="stat-item" id="ma-24" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Ospite 2-4\',\'' + match.date + '\',\'ma-24\',\'MULTIGOL_OSPITE\')"><span class="label">Ospite 2-4</span><span class="value">-</span></div></div></div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Multigol Totali</div><div class="stats-row"><div class="stat-item" id="mt-14" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG 1-4\',\'' + match.date + '\',\'mt-14\',\'MULTIGOL_TOTALE\')"><span class="label">1-4</span><span class="value">-</span></div><div class="stat-item" id="mt-25" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG 2-5\',\'' + match.date + '\',\'mt-25\',\'MULTIGOL_TOTALE\')"><span class="label">2-5</span><span class="value">-</span></div><div class="stat-item" id="oh-15" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 1,5 Casa\',\'' + match.date + '\',\'oh-15\',\'MULTIGOL_TOTALE\')"><span class="label">O 1,5 Casa</span><span class="value">-</span></div><div class="stat-item" id="oa-15" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 1,5 Ospite\',\'' + match.date + '\',\'oa-15\',\'MULTIGOL_TOTALE\')"><span class="label">O 1,5 Ospite</span><span class="value">-</span></div></div></div></div><div class="stats-panel"><div class="stats-section-title" style="color:' + lc + ';">📊 Classifica</div><div id="standingsContent" style="margin-top:15px;"></div></div></div><div class="h2h-section"><div class="stats-section-title" style="color:' + lc + ';">️ Head-to-Head (Ultimi Incontri)</div><div id="h2hContent"></div></div><div class="h2h-section"><div class="stats-section-title" style="color:' + lc + ';">🏥 Infortuni e Squalifiche</div><div id="injuriesContent"></div></div><div class="ai-panel" style="--league-color: ' + lc + ';"><div class="stats-section-title" style="color:' + lc + ';"> ANALISI AI (GROQ)</div><div class="ai-content" id="matchAiContent"><div style="text-align:center;color:#87ceeb;"><div style="font-size:32px;margin-bottom:10px;">⏳</div>Generazione...</div></div><div class="export-buttons"><button class="btn btn-success" onclick="exportMatchAIAsPNG()">📷 PNG</button><button class="btn" onclick="exportMatchAIAsText()"> Testo</button><button class="btn btn-secondary" onclick="shareMatchAITelegram()">✈️ Telegram</button><button class="btn btn-secondary" onclick="shareMatchAIWhatsApp()">💬 WhatsApp</button><button class="btn btn-secondary" onclick="shareMatchAIEmail()">📧 Email</button></div></div>';
+document.getElementById('matchDetailContent').innerHTML = '<div class="match-header-detail" style="--league-color: ' + lc + ';"><div class="match-header-top"><div class="match-header-title" style="color: ' + lc + ';">' + match.league + ' - Giornata: ' + rn + '</div><div class="match-header-time">⏰ ' + (match.time || 'N/D') + '</div></div><div style="text-align:center;color:#87ceeb;margin-bottom:10px;">📅 ' + match.date + '</div><div class="match-teams-display"><div class="team-display"><div class="team-goals-detail">⚽ Gol: ' + hg.fatti + ' F / ' + hg.subiti + ' S</div><div class="team-logo-container">' + hLogo + '</div><div class="team-name">' + match.homeTeam + '</div><div class="team-form-detail">' + createFormHTML(match.homeForm) + '</div><div style="margin-top:5px;font-size:0.85em;">' + createFormResults(match.homeTeam) + '</div><div style="margin-top:10px;">' + resultHtml + '</div></div><div class="vs-separator" style="color: ' + lc + '; display:flex; flex-direction:column; align-items:center; gap:10px;"><span>VS</span>' + xgDisplay + flagsDetailHtml + '</div><div class="team-display"><div class="team-goals-detail">⚽ Gol: ' + ag.fatti + ' F / ' + ag.subiti + ' S</div><div class="team-logo-container">' + aLogo + '</div><div class="team-name">' + match.awayTeam + '</div><div class="team-form-detail">' + createFormHTML(match.awayForm) + '</div><div style="margin-top:5px;font-size:0.85em;">' + createFormResults(match.awayTeam) + '</div><div style="margin-top:10px;">' + resultHtml + '</div></div></div></div><div class="stats-grid-detail"><div class="stats-panel" style="--league-color: ' + lc + ';"><div id="clickInfo" class="click-info" style="display:none;">1° click: <span id="firstClickInfo"></span> - clicca 2° per combo</div><div id="comboError" class="combo-error" style="display:none;">❌ Combo non valida!</div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Doppia Chance</div><div class="stats-row"><div class="stat-item" id="dc-1x" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'1X\',\'' + match.date + '\',\'dc-1x\',\'DC\')"><span class="label">1X</span><span class="value">-</span></div><div class="stat-item" id="dc-12" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'12\',\'' + match.date + '\',\'dc-12\',\'DC\')"><span class="label">12</span><span class="value">-</span></div><div class="stat-item" id="dc-x2" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'X2\',\'' + match.date + '\',\'dc-x2\',\'DC\')"><span class="label">X2</span><span class="value">-</span></div></div></div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Under - Over</div><div class="stats-row"><div class="stat-item" id="o-15" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 1,5\',\'' + match.date + '\',\'o-15\',\'UNDER_OVER\')"><span class="label">Over 1,5</span><span class="value">-</span></div><div class="stat-item" id="o-25" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 2,5\',\'' + match.date + '\',\'o-25\',\'UNDER_OVER\')"><span class="label">Over 2,5</span><span class="value">-</span></div><div class="stat-item" id="u-35" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Under 3,5\',\'' + match.date + '\',\'u-35\',\'UNDER_OVER\')"><span class="label">Under 3,5</span><span class="value">-</span></div><div class="stat-item" id="u-45" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Under 4,5\',\'' + match.date + '\',\'u-45\',\'UNDER_OVER\')"><span class="label">Under 4,5</span><span class="value">-</span></div></div></div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Multigol Casa - Ospite</div><div class="stats-row-6"><div class="stat-item" id="mh-01" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Casa 0-1\',\'' + match.date + '\',\'mh-01\',\'MULTIGOL_CASA\')"><span class="label">Casa 0-1</span><span class="value">-</span></div><div class="stat-item" id="mh-13" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Casa 1-3\',\'' + match.date + '\',\'mh-13\',\'MULTIGOL_CASA\')"><span class="label">Casa 1-3</span><span class="value">-</span></div><div class="stat-item" id="mh-24" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Casa 2-4\',\'' + match.date + '\',\'mh-24\',\'MULTIGOL_CASA\')"><span class="label">Casa 2-4</span><span class="value">-</span></div><div class="stat-item" id="ma-01" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Ospite 0-1\',\'' + match.date + '\',\'ma-01\',\'MULTIGOL_OSPITE\')"><span class="label">Ospite 0-1</span><span class="value">-</span></div><div class="stat-item" id="ma-13" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Ospite 1-3\',\'' + match.date + '\',\'ma-13\',\'MULTIGOL_OSPITE\')"><span class="label">Ospite 1-3</span><span class="value">-</span></div><div class="stat-item" id="ma-24" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG Ospite 2-4\',\'' + match.date + '\',\'ma-24\',\'MULTIGOL_OSPITE\')"><span class="label">Ospite 2-4</span><span class="value">-</span></div></div></div><div class="stats-section"><div class="stats-section-title" style="color: ' + lc + ';">Multigol Totali</div><div class="stats-row"><div class="stat-item" id="mt-14" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG 1-4\',\'' + match.date + '\',\'mt-14\',\'MULTIGOL_TOTALE\')"><span class="label">1-4</span><span class="value">-</span></div><div class="stat-item" id="mt-25" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'MG 2-5\',\'' + match.date + '\',\'mt-25\',\'MULTIGOL_TOTALE\')"><span class="label">2-5</span><span class="value">-</span></div><div class="stat-item" id="oh-15" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 1,5 Casa\',\'' + match.date + '\',\'oh-15\',\'MULTIGOL_TOTALE\')"><span class="label">O 1,5 Casa</span><span class="value">-</span></div><div class="stat-item" id="oa-15" onclick="handleBetClick(\'' + match.homeTeam + ' vs ' + match.awayTeam + '\',\'Over 1,5 Ospite\',\'' + match.date + '\',\'oa-15\',\'MULTIGOL_TOTALE\')"><span class="label">O 1,5 Ospite</span><span class="value">-</span></div></div></div></div><div class="stats-panel"><div class="stats-section-title" style="color:' + lc + ';">📊 Classifica</div><div id="standingsContent" style="margin-top:15px;"></div></div></div><div class="h2h-section"><div class="stats-section-title" style="color:' + lc + ';">⚔️ Head-to-Head (Ultimi Incontri)</div><div id="h2hContent"></div></div><div class="h2h-section"><div class="stats-section-title" style="color:' + lc + ';">🏥 Infortuni e Squalifiche</div><div id="injuriesContent"></div></div><div class="ai-panel" style="--league-color: ' + lc + ';"><div class="stats-section-title" style="color:' + lc + ';">🤖 ANALISI AI (GROQ)</div><div class="ai-content" id="matchAiContent"><div style="text-align:center;color:#87ceeb;"><div style="font-size:32px;margin-bottom:10px;">⏳</div>Generazione...</div></div><div class="export-buttons"><button class="btn btn-success" onclick="exportMatchAIAsPNG()">📷 PNG</button><button class="btn" onclick="exportMatchAIAsText()">📝 Testo</button><button class="btn btn-secondary" onclick="shareMatchAITelegram()">✈️ Telegram</button><button class="btn btn-secondary" onclick="shareMatchAIWhatsApp()">💬 WhatsApp</button><button class="btn btn-secondary" onclick="shareMatchAIEmail()">📧 Email</button></div></div>';
 
 if (stats) {
 const dc1xEl = document.getElementById('dc-1x');
@@ -1059,7 +1511,6 @@ if (mt25El) mt25El.querySelector('.value').textContent = (stats.mgtot25 || 0) + 
 if (oh15El) oh15El.querySelector('.value').textContent = (stats.mgoh15 || 0) + '%';
 if (oa15El) oa15El.querySelector('.value').textContent = (stats.mgoa15 || 0) + '%';
 
-// HIGHLIGHT ORO: massima PER OGNI FASCIA di giocata
 const dcItems = [{ el: dc1xEl, value: stats.dc1x || 0 }, { el: dc12El, value: stats.dc12 || 0 }, { el: dcX2El, value: stats.dcX2 || 0 }].filter(i => i.el !== null);
 if (dcItems.length > 0) { const maxDC = Math.max(...dcItems.map(i => i.value)); if (maxDC > 0) dcItems.filter(i => i.value === maxDC).forEach(i => i.el.classList.add('highlight')); }
 
@@ -1373,7 +1824,7 @@ const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'
 const url = URL.createObjectURL(blob);
 const a = document.createElement('a'); a.href = url; a.download = 'gessai_backup_' + new Date().toISOString().split('T')[0] + '.json'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
 showNotification('📤 Dati esportati con successo!', 'success');
-} catch (err) { showNotification(' Errore esportazione: ' + err.message, 'error'); }
+} catch (err) { showNotification('❌ Errore esportazione: ' + err.message, 'error'); }
 }
 function importData(event) {
 const file = event.target.files[0]; if (!file) return;
@@ -1393,7 +1844,6 @@ if (confirm('⚠️ ATTENZIONE: Questa azione cancellerà TUTTI i dati.\n\nSei s
 if (confirm('🔴 ULTIMO AVVISO: Tutti i dati verranno persi!\n\nConfermi?')) { localStorage.clear(); showNotification('🗑️ Dati cancellati! Ricaricamento...', 'success'); setTimeout(() => location.reload(), 1500); }
 }
 }
-function fetchFootballData() { showNotification('⚠️ Funzione Football-Data.org in sviluppo.', 'error'); }
 function downloadAsCSV() { exportToCSV(); }
 function exportToCSV() {
 if (allMatches.length === 0) { showNotification('Nessun dato da esportare', 'error'); return; }
@@ -1428,7 +1878,7 @@ const allTeams = [...new Set(allMatches.flatMap(m => [m.homeTeam, m.awayTeam]))]
 }
 function renderSavedLeagues() { const c = document.getElementById('savedLeaguesList'); if (!c) return; if (savedLeagues.length === 0) { c.innerHTML = '<div style="text-align:center;padding:20px;color:#87ceeb;">Nessun campionato</div>'; return; } c.innerHTML = savedLeagues.map((l, i) => '<div class="saved-league-item" style="--league-color: ' + getLeagueColor(l) + ';"><span>⚽ ' + l + '</span><button class="remove-btn" onclick="removeLeague(' + i + ')">✕</button></div>').join(''); }
 function renderLeagueOrder() { const c = document.getElementById('leagueOrderList'); if (!c) return; let html = ''; if (leagueOrder.length > 0) { html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><span style="color:#87ceeb;">Campionati salvati</span><button class="btn btn-danger" onclick="clearLeagueOrder()" style="padding:5px 10px;font-size:12px;">🗑️ Svuota lista</button></div>'; html += leagueOrder.map((l, i) => '<div class="league-order-item" style="--league-color: ' + getLeagueColor(l) + ';"><span style="flex:1;">⚽ ' + l + '</span><div class="league-order-buttons"><button class="league-order-btn" onclick="removeFromOrder(' + i + ')" title="Rimuovi dalla lista" style="background:#dc3545;">✕</button><button class="league-order-btn" onclick="moveLeagueUp(' + i + ')" ' + (i === 0 ? 'disabled' : '') + '>↑</button><button class="league-order-btn" onclick="moveLeagueDown(' + i + ')" ' + (i === leagueOrder.length - 1 ? 'disabled' : '') + '>↓</button></div></div>').join(''); } else { html = '<div style="text-align:center;padding:20px;color:#87ceeb;">Nessun campionato</div>'; } c.innerHTML = html; }
-function removeFromOrder(index) { const league = leagueOrder[index]; if (confirm('Rimuovere "' + league + '" dalla lista di ordinamento?\n️ Le partite NON verranno cancellate.')) { leagueOrder.splice(index, 1); saveToStorage(); renderLeagueOrder(); updateLeagueSelectors(); showNotification('"' + league + '" rimosso dalla lista', 'success'); } }
+function removeFromOrder(index) { const league = leagueOrder[index]; if (confirm('Rimuovere "' + league + '" dalla lista di ordinamento?\n⚠️ Le partite NON verranno cancellate.')) { leagueOrder.splice(index, 1); saveToStorage(); renderLeagueOrder(); updateLeagueSelectors(); showNotification('"' + league + '" rimosso dalla lista', 'success'); } }
 function clearLeagueOrder() { if (confirm('Vuoi svuotare la lista dei campionati? I dati delle partite rimarranno.')) { leagueOrder = []; saveToStorage(); renderLeagueOrder(); updateLeagueSelectors(); showNotification('Lista campionati svuotata', 'success'); } }
 function moveLeagueUp(index) { if (index > 0) { [leagueOrder[index], leagueOrder[index-1]] = [leagueOrder[index-1], leagueOrder[index]]; saveToStorage(); renderLeagueOrder(); updateLeagueSelectors(); } }
 function moveLeagueDown(index) { if (index < leagueOrder.length - 1) { [leagueOrder[index], leagueOrder[index+1]] = [leagueOrder[index+1], leagueOrder[index]]; saveToStorage(); renderLeagueOrder(); updateLeagueSelectors(); } }
@@ -1462,8 +1912,6 @@ function exportMatchAIAsText() { const el = document.getElementById('matchAiCont
 function shareMatchAITelegram() { const el = document.getElementById('matchAiContent'); if (!el) return; const text = encodeURIComponent(el.innerText); window.open('https://t.me/share/url?text=' + text, '_blank'); }
 function shareMatchAIWhatsApp() { const el = document.getElementById('matchAiContent'); if (!el) return; const text = encodeURIComponent(el.innerText); window.open('https://wa.me/?text=' + text, '_blank'); }
 function shareMatchAIEmail() { const el = document.getElementById('matchAiContent'); if (!el) return; const subject = encodeURIComponent('Analisi AI GesssAI-Pro'); const body = encodeURIComponent(el.innerText); window.location.href = 'mailto:?subject=' + subject + '&body=' + body; }
-function searchTheSportsDBLeague() { showNotification('⚠️ Funzione in sviluppo.', 'error'); }
-function searchApiFootballLeague() { showNotification('⚠️ Funzione in sviluppo.', 'error'); }
 </script>
 </body>
 </html>
